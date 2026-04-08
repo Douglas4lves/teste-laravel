@@ -12,11 +12,21 @@
 
         {{-- Barra de pesquisa --}}
         <div class="mb-4">
-            {{-- {{ route('users.index') }} --}}
-            <form method="GET" action="#">
-                <input type="text" name="search" placeholder="Pesquisar usuário..." 
-                       class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                       value="{{ request('search') }}">
+            <form>
+                <div class="flex">
+                    <input type="text" name="search" placeholder="Pesquisar usuário..."
+                        class="flex-1 p-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                    <div class="flex gap-1">
+                        <button type="submit" class="bg-blue-600 border rounded text-white">
+                            <span>Pesquisar</span>
+                        </button>
+                        <a href="{{route('users.index')}}" class="bg-yellow-400 border rounded">
+                            <span>Limpar</span>
+                        </a>
+
+                    </div>
+                </div>
             </form>
         </div>
 
@@ -60,7 +70,7 @@
 
             {{-- Paginação --}}
             <div class="p-4">
-                {{-- {{ $users->links() }} --}}
+                {{ $users->links() }}
             </div>
         </div>
     </div>
