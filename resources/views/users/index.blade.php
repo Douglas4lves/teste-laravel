@@ -4,8 +4,7 @@
         {{-- Cabeçalho --}}
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Usuários</h1>
-            {{-- {{ route('users.create') }} --}}
-            <a href="#" 
+            <a href="{{ route('users.store') }}" 
                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                 Novo Usuário
             </a>
@@ -39,7 +38,7 @@
                         <td class="px-6 py-4">{{ $user->name }}</td>
                         <td class="px-6 py-4">{{ $user->email }}</td>
                         <td class="px-6 py-4">
-                            {{ $user->expires_at ? $user->expires_at->format('d/m/Y H:i') : 'Sem expiração' }}
+                            {{ $user->expires_at ? $user->expires_at->format('d/m/Y') : 'Sem expiração' }}
                         </td>
                         <td class="px-6 py-4 text-center">
                             {{-- {{ route('users.edit', $user) }} --}}

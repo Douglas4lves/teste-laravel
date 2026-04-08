@@ -13,12 +13,15 @@ Route::middleware('guest')->group(function() {
 
 
 Route::middleware(['auth'])->group(function() {
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/home', function(){
         return view('home');
     })->name('home');
     Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+
+    // Usuários
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
+
+
 });
-
-
-
