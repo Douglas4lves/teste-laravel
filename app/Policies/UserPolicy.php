@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Database\Eloquent\Model;
 
 class UserPolicy
 {
@@ -18,7 +19,7 @@ class UserPolicy
         return $user->isAdmin() ? Response::allow() : Response::deny('Você não tem permissão para executar essa ação!');
     }
 
-    public function update(User $user): bool
+    public function update(User $user, Model $model): bool
     {
         return $user->isAdmin();
     }

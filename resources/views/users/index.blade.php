@@ -4,7 +4,7 @@
         {{-- Cabeçalho --}}
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Usuários</h1>
-            <a href="{{ route('users.store') }}" 
+            <a href="{{ route('users.create') }}" 
                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                 Novo Usuário
             </a>
