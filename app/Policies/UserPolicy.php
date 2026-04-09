@@ -19,12 +19,12 @@ class UserPolicy
         return $user->isAdmin() ? Response::allow() : Response::deny('Você não tem permissão para executar essa ação!');
     }
 
-    public function update(User $user, Model $model): bool
+    public function update(User $user, User $model): bool
     {
         return $user->isAdmin();
     }
 
-    public function delete(User $user): bool
+    public function delete(User $user, User $model): bool
     {
         return $user->isAdmin();
     }

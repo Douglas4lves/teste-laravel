@@ -51,8 +51,7 @@
                             {{ $user->expires_at ? $user->expires_at->format('d/m/Y') : 'Sem expiração' }}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            {{-- {{ route('users.edit', $user) }} --}}
-                            <a href="#" 
+                            <a href="{{ route('users.edit', $user->id) }}" 
                                class="text-blue-600 hover:text-blue-800">Editar</a>
                         </td>
                         <td class="px-6 py-4 text-center">

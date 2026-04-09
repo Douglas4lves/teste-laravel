@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\View\View;
@@ -71,6 +72,60 @@ class UserController extends Controller
         $this->authorize('update', $user);
         return view ('users.edit', compact('user'));
 
+
+    }
+
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
+    {
+        $this->authorize('update', $user);
+
+        try {
+            DB::beginTransaction();
+
+            $validated = $request->validated();
+
+            $validated['is_admin'] = $request->boolean('is_admin');
+
+
+            //Não preenche a senha caso estiver vazio
+            if(empty($validated['password'])){
+                unset($validated['password']);
+            }
+            $user->update($validated);
+
+            DB::commit();
+
+            return redirect()
+                ->route('users.index')
+                ->with('success', 'Usuário atualizado com sucesso!');
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            return back()
+                ->withInput()
+                ->withErrors('Erro ao criar usuário.');
+        }
+
+    }
+
+    public function destroy(User $user)
+    {
+        $this->authorize('delete', $user);
+
+        try{
+            DB::beginTransaction();
+            $user->delete();
+            DB::commit();
+
+            return redirect()
+                ->route('users.index')
+                ->with('success', 'Usuário removido com sucesso');
+        }catch(\Throwable $e){
+            return back()
+                ->withErrors('Erro ao remover usuário');
+        }
+        
 
     }
 
