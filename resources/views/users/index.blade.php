@@ -9,6 +9,33 @@
                 Novo Usuário
             </a>
         </div>
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+            <p class="text-red-500">{{$error}}</p>
+            @endforeach
+        @endif
+        <form action="{{ route('users.import') }}" method="POST" enctype="multipart/form-data" class="flex items-center gap-3">
+            @csrf
+
+            <input
+                type="file"
+                name="csv_file"
+                accept=".csv"
+                class="block text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 
+                    file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-blue-50 file:text-blue-700
+                    hover:file:bg-blue-100"
+            >
+
+            <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
+            >
+                Importar
+            </button>
+
+        </form>
 
         {{-- Barra de pesquisa --}}
         <div class="mb-4">
@@ -55,8 +82,8 @@
                                class="text-blue-600 hover:text-blue-800">Editar</a>
                         </td>
                         <td class="px-6 py-4 text-center">
-                            {{-- {{ route('users.destroy', $user) }} --}}
-                            <form action="#" method="POST" onsubmit="return confirm('Tem certeza?');">
+                            <form action="{{ route('users.destroy', $user) }}" method="POST" 
+                            onsubmit="return confirm('Você tem certeza que deseja deletar o usuário {{$user->name}}');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600 hover:text-red-800">Apagar</button>

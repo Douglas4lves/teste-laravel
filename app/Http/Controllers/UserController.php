@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
+use App\Jobs\ImportUserJob;
+use App\Jobs\ImportUsersJob;
 use App\Models\User;
+use Exception;
 use Illuminate\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -126,8 +129,24 @@ class UserController extends Controller
                 ->withErrors('Erro ao remover usuário');
         }
         
-
     }
 
+    public function import(Request $request)
+    {
+        $request->validate([
+            'csv_file' => 'required|file|mimes:csv,txt|max:10240'
+        ]);
+        
+        $path = $request->file('csv_file')->store('uploads');
+        
+
+        ImportUserJob::dispatch($path);
+    
+        return response()->json([
+            'message' => 'Arquivo enviado e importação iniciada.'
+        ]);
+
+    }
+    
 
 }
