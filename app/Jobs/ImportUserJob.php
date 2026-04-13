@@ -24,36 +24,33 @@ class ImportUserJob implements ShouldQueue
      */
     public function handle(): void
     {
+
         $fullPath = storage_path('app/private/' . $this->filePath);
 
-        $file = fopen($fullPath, 'r');
+            $file = fopen($fullPath, 'r');
 
-        fgetcsv($file, 1000, ";");
+            fgetcsv($file, 1000, ";");
 
-        $chunk = [];
-        $chunkSize = 5000;
+            $chunk = [];
+            $chunkSize = 5000;
 
 
-        while(($row = fgetcsv($file, 1000, ";")) !== FALSE){
-            if(!isset($row[1])) continue;
+            while(($row = fgetcsv($file, 1000, ";")) !== FALSE){
+                if(!isset($row[1])) continue;
 
-            $chunk[] = $row;
+                $chunk[] = $row;
 
-            if(count($chunk) >= $chunkSize){
+                if(count($chunk) >= $chunkSize){
+                    ProcessUsersChunkJob::dispatch($chunk);
+                    $chunk = [];
+                }
+
+            }
+            if(!empty($chunk)){
                 ProcessUsersChunkJob::dispatch($chunk);
             }
 
-            // User::updateOrCreate([
-            //     'name' => $row[0],
-            //     'email' => $row[1],
-            //     'password' => $row[2]
-            // ]);
-        }
-        if(!empty($chunk)){
-            ProcessUsersChunkJob::dispatch($chunk);
-        }
-
-        fclose($file);
-
+            fclose($file);
+        
     }
 }

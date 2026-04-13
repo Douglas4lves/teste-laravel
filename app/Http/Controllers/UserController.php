@@ -133,18 +133,25 @@ class UserController extends Controller
 
     public function import(Request $request)
     {
-        $request->validate([
-            'csv_file' => 'required|file|mimes:csv,txt|max:10240'
-        ]);
-        
-        $path = $request->file('csv_file')->store('uploads');
-        
+        try{
+            $request->validate([
+                'csv_file' => 'required|file|mimes:csv,txt|max:10240'
+            ]);
+            
+            $path = $request->file('csv_file')->store('uploads');
+            
 
-        ImportUserJob::dispatch($path);
-    
-        return response()->json([
-            'message' => 'Arquivo enviado e importação iniciada.'
-        ]);
+            ImportUserJob::dispatch($path);
+        
+            return redirect()
+                ->route('users.index')
+                ->with('success', "Arquivo enviado e importação iniciada");
+        }catch(\Throwable $e){
+            return redirect()
+                ->back()
+                ->withErrors(['csv_file' => 'Erro ao processar arquivo.']);
+        }
+        
 
     }
     

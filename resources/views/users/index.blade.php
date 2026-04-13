@@ -9,6 +9,11 @@
                 Novo Usuário
             </a>
         </div>
+        @if(session('success'))
+            <p class="text-green-500">
+                {{ session('success') }}
+            </p>
+        @endif
         @if($errors->any())
             @foreach($errors->all() as $error)
             <p class="text-red-500">{{$error}}</p>
