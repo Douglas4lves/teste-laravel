@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -133,6 +134,8 @@ class UserController extends Controller
 
     public function import(Request $request)
     {
+
+        
         try{
             $request->validate([
                 'csv_file' => 'required|file|mimes:csv,txt|max:10240'
@@ -141,7 +144,7 @@ class UserController extends Controller
             $path = $request->file('csv_file')->store('uploads');
             
 
-            ImportUserJob::dispatch($path);
+            ImportUserJob::dispatch($path, Auth::user()->email);
         
             return redirect()
                 ->route('users.index')
