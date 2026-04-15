@@ -29,7 +29,7 @@ class LoginController extends Controller
                 Auth::logout();
 
                 return back()->withErrors([
-                    'email' => 'Acesso expirado'
+                    'msg' => 'Acesso expirado'
                 ]);
 
             }

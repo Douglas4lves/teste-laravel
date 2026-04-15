@@ -18,6 +18,13 @@
 
             </div>
             
+
+            @error('msg')
+                <div class="text-red-700 bg-red-300 text-center toast">
+                    {{ $errors->first('msg') }} 
+                </div>       
+            @enderror
+
             <form method="POST" action="{{route('auth.login')}}" class="space-y-4">
                 @csrf
 

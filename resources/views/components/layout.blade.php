@@ -16,5 +16,7 @@
     {{-- Main --}}
     {{$slot}}
 
+    <script type="module"  src="{{ Vite::asset('resources/js/toast.js') }}"></script>
+
 </body>
 </html>
