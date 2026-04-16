@@ -17,12 +17,13 @@
                 </p>
 
             </div>
-            
+                
 
             @error('msg')
-                <div class="text-red-700 bg-red-300 text-center toast">
-                    {{ $errors->first('msg') }} 
-                </div>       
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative toast">
+                    <strong>Error: </strong>
+                    <span class="block sm:inline">{{ $errors->first('msg') }}  </span>
+                </div>      
             @enderror
 
             <form method="POST" action="{{route('auth.login')}}" class="space-y-4">

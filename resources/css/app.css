@@ -9,3 +9,25 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+
+/* Paginação - força modo claro */
+nav[role="navigation"] span,
+nav[role="navigation"] a {
+    @apply bg-white text-gray-700 border-gray-300;
+}
+
+/* Hover */
+nav[role="navigation"] a:hover {
+    @apply bg-blue-50 text-blue-600;
+}
+
+/* Página ativa */
+nav[role="navigation"] span[aria-current="page"] {
+    @apply bg-blue-600 text-white border-blue-600;
+}
+
+/* Disabled */
+nav[role="navigation"] span[aria-disabled="true"] {
+    @apply text-gray-400 bg-gray-100;
+}
