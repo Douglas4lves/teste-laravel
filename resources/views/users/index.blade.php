@@ -1,29 +1,36 @@
 <x-base-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+        {{-- barra vertical
+            <div class="w-50 h-1 bg-blue-600"></div> --}}
         {{-- Cabeçalho --}}
-        <div class="flex flex-col mb-6">
-            <h1 class="text-3xl font-semibold text-gray-800 tracking-tight mb-2">Usuários</h1>
-            {{-- barra vertical --}}
-            <div class="w-50 h-1 bg-blue-600"></div>
-        </div>
         <div class="flex justify-between">
-            {{-- Importação CSV --}}
-            <form action="{{ route('users.import') }}" method="POST" enctype="multipart/form-data" class="flex items-center gap-3">
-                @csrf
-                <input type="file" name="csv_file" accept=".csv" class="block text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 
-                        file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold
-                        file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer">
-                    Importar
-                </button>
-            </form>
+            <div class="flex flex-col mb-6">
+                <h1 class="text-3xl font-semibold text-gray-700 tracking-tight mb-2">Usuários</h1>
+                <p class="text-gray-700 opacity-60">Gerencie os membros da sua organização</p>
+            </div>
+            <div class="flex items-center gap-3">
+                {{-- Importação CSV --}}
+                <form action="{{ route('users.import') }}" method="POST" enctype="multipart/form-data" class="flex ">
+                    @csrf
+                    <label class="flex items-center gap-2 cursor-pointer bg-white text-gray-600 border border-gray-600 px-4 py-2 rounded hover:bg-gray-200">
+                        <span>
+                            <x-icons.upload/>
+                        </span>
+                        Importar CSV
+                        <input type="file" name="csv_fileeee" class="hidden" onchange="this.form.submit()"
+                        >
+                    </label>
+                </form>
 
-            {{-- Criar novo usuário --}}
-            <a href="{{ route('users.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Novo Usuário
-            </a>
+                {{-- Criar novo usuário --}}
+                <a href="{{ route('users.create') }}" class="flex items-center gap-2 bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-900">
+                    <span>
+                        <x-icons.plus/>
+                    </span>
+                    Novo Usuário
+                </a>
+            </div>
         </div>
-
         @if(session('success'))
             <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-mds mb-4">
                 <p>{{session('success')}}</p>
@@ -37,22 +44,20 @@
                 </div>
             @endforeach
         @endif
-
+                 
         {{-- Barra de pesquisa --}}
         <div class="mb-4 mt-4">
-            <form>
+            <form method="GET" action="{{ route('users.index') }}">
                 <div class="flex">
-                    <input type="text" name="search" class="flex-1 p-2 border border-gray-300 rounded-l focus:outline-none 
-                    focus:ring-2 focus:ring-blue-500" placeholder="Pesquisar usuário...">
-                    <div class="flex gap-1">
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer">
-                            <span>Pesquisar</span>
-                        </button>
-                        <a href="{{route('users.index')}}" class="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-700">
+                    <input 
+                        type="text" 
+                        name="search" 
+                        class="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Pesquisar usuário..."
+                    >
+                    <a href="{{route('users.index')}}" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-900">
                             <span>Limpar</span>
-                        </a>
-
-                    </div>
+                    </a>
                 </div>
             </form>
         </div>

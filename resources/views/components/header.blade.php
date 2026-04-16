@@ -6,7 +6,10 @@
             <div class="flex items-center gap-2">
                 
                 {{-- {{ route('dashboard') }} --}}
-                <a href="{{route('home')}}" class="text-xl font-bold text-gray-800">
+                <a href="{{route('home')}}" class="flex items-center gap-1 text-xl font-bold text-gray-800">
+                    <span class="bg-gray-800 border rounded">
+                        <x-icons.users/>
+                    </span>
                     {{ config('app.name') }}
                 </a>
             </div>
@@ -21,9 +24,8 @@
                 {{-- Dropdown / Logout --}}
                 <form method="POST" action="{{ route('auth.logout') }}">
                     @csrf
-                    <button type="submit" 
-                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
-                        Sair
+                    <button type="submit" class="hover:bg-red-400 text-gray-600 hover:text-white px-3 py-1 rounded-lg">
+                        <x-icons.logout/>
                     </button>
                 </form>
 
