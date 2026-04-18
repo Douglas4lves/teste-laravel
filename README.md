@@ -10,7 +10,7 @@
 
 ---
 
-## ⚙️ Regras Extras
+## Regras Extras
 
 ### Admin automático
 - Se email contém `@fontecred.com.br`:
@@ -18,20 +18,20 @@
 - Remover usuários com acesso expirado há mais de 6 meses
 ---
 
-## 🖥️ Telas Esperadas
+## Projeto
 
-### 🔐 Login
+### Login
 ![Home](public/images/readme/login.png)
 ![Home](public/images/readme/acesso-expirado.png)
 
 ---
 
-### 🏠 Home
+### Home
 ![Home](public/images/readme/home.png)
 
 ---
 
-### 👥 Listagem de Usuários
+### Listagem de Usuários
 ![Home](public/images/readme/importacao.png)
 ![Home](public/images/readme/error.png)
 ![Home](public/images/readme/filter.png)
@@ -39,10 +39,10 @@
 
 ---
 
-### ➕ Criar/Editar/Excluir Usuário
+### Criar/Editar/Excluir Usuário
 ![Home](public/images/readme/edit%20or%20create.png)
 ![Home](public/images/readme/delete.png)
 ---
 
-### 📂 Importação CSV
+### Importação CSV
 ![Home](public/images/readme/job.png)
