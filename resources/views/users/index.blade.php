@@ -1,8 +1,5 @@
 <x-base-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-        {{-- barra vertical
-            <div class="w-50 h-1 bg-blue-600"></div> --}}
-        {{-- Cabeçalho --}}
         <div class="flex justify-between">
             <div class="flex flex-col mb-6">
                 <h1 class="text-3xl font-semibold text-gray-700 tracking-tight mb-2">Usuários</h1>
@@ -17,8 +14,7 @@
                             <x-icons.upload/>
                         </span>
                         Importar CSV
-                        <input type="file" name="csv_fileeee" class="hidden" onchange="this.form.submit()"
-                        >
+                        <input type="file" name="csv_file" class="hidden" onchange="this.form.submit()">
                     </label>
                 </form>
 
@@ -32,7 +28,7 @@
             </div>
         </div>
         @if(session('success'))
-            <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-mds mb-4">
+            <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-mds mb-4 toast">
                 <p>{{session('success')}}</p>
             </div>  
         @endif
@@ -63,15 +59,14 @@
         </div>
 
         {{-- Tabela --}}
-        <div class="overflow-x-auto bg-white rounded shadow">
+        <div class="overflow-x-auto bg-white rounded-lg shadow">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nome</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Expiração</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Editar</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Apagar</th>
+                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -82,16 +77,18 @@
                         <td class="px-6 py-4">
                             {{ $user->expires_at ? $user->expires_at->format('d/m/Y') : 'Sem expiração' }}
                         </td>
-                        <td class="px-6 py-4 text-center">
-                            <a href="{{ route('users.edit', $user->id) }}" 
-                               class="text-blue-600 hover:text-blue-800">Editar</a>
-                        </td>
-                        <td class="px-6 py-4 text-center">
+                        <td class=" flex justify-center gap-2 p-4">
+                            <a href="{{ route('users.edit', $user->id) }}" class="hover:bg-gray-300 text-gray-700 hover:text-gray-900 p-1 rounded-full">
+                                <x-icons.edit/>
+                            </a>
+                            
                             <form action="{{ route('users.destroy', $user) }}" method="POST" 
                             onsubmit="return confirm('Você tem certeza que deseja deletar o usuário {{$user->name}}');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-800">Apagar</button>
+                                <button type="submit" class="hover:bg-red-300 text-gray-700 hover:text-red-700 p-1 rounded-full cursor-pointer">
+                                    <x-icons.trash/>
+                                </button>
                             </form>
                         </td>
                     </tr>

@@ -33,8 +33,8 @@ class LoginController extends Controller
                 ]);
 
             }
-
-            $user = auth()->user();
+            
+            $user = Auth()->user();
             if($user->isAdmin()){
                 return redirect()->route('users.index');
             }
@@ -42,7 +42,7 @@ class LoginController extends Controller
             return redirect()->route('home');
         }
 
-        return back()->withErros([
+        return back()->withErrors([
             'email' => 'Credenciais inválidas'
         ]);
 

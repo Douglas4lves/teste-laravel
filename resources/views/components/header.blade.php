@@ -15,16 +15,20 @@
             </div>
 
             {{-- Usuário logado --}}
-            <div class="ml-4 flex items-center md:ml-6">
-                <span class="text-gray-700 font-medium mr-2">
+            <div class="ml-4 flex items-center md:ml-6 gap-1">
+                <a href="{{route('users.index')}}" class="flex items-center rounded-full p-1 px-4 gap-2 bg-gray-200">
+                    <div class="bg-gray-300 rounded-full p-1">
+                        <x-icons.user/>
+                    </div>
+                    <span class="text-gray-700 font-medium mr-2">
                     {{ auth()->user()?->name ?? 'Visitante' }}
-                </span>
-
-                
+                    </span>
+                </a>
+                               
                 {{-- Dropdown / Logout --}}
                 <form method="POST" action="{{ route('auth.logout') }}">
                     @csrf
-                    <button type="submit" class="hover:bg-red-400 text-gray-600 hover:text-white px-3 py-1 rounded-lg">
+                    <button type="submit" class="hover:bg-red-400 text-gray-600 hover:text-white p-1 rounded-full cursor-pointer">
                         <x-icons.logout/>
                     </button>
                 </form>
